@@ -1,6 +1,6 @@
-# Make Your Blackjack Code More Testable
+# Clean Code
 
-This is the starter code base for part 2 of the "Refactoring to Testable Code" (aka "Make Code More Testable") class. Also known as "Refactoring to Hexagonal Architecture".
+This is the starter code base for part 2 of Clean Code
 
 # Requirements
 
