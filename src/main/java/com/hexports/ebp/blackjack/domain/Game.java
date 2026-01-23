@@ -1,5 +1,7 @@
 package com.hexports.ebp.blackjack.domain;
 
+import com.hexports.ebp.blackjack.domain.port.GameMonitor;
+
 public class Game {
 
     private final Deck deck;
@@ -7,10 +9,17 @@ public class Game {
     private final Hand dealerHand = new Hand();
     private final Hand playerHand = new Hand();
 
+    private GameMonitor gameMonitor;
+
     private boolean playerDone = false;
 
     public Game(Deck deck) {
         this.deck = deck;
+    }
+
+    public Game(Deck deck, GameMonitor gameMonitor) {
+        this.deck = deck;
+        this.gameMonitor = gameMonitor;
     }
 
     public void initialDeal() {
@@ -52,6 +61,7 @@ public class Game {
                 dealerHand.drawFrom(deck);
             }
         }
+        gameMonitor.roundCompleted(this);
     }
 
     public Hand playerHand() {
@@ -82,11 +92,16 @@ public class Game {
         // enforce protocol: can't call this method if playerDone == true
         playerHand.drawFrom(deck);
         playerDone = playerHand.isBusted();
+        if (playerDone) {
+            gameMonitor.roundCompleted(this);
+        }
+
     }
 
     public void playerStands() {
         playerDone = true;
         dealerTurn();
+
     }
 
 }

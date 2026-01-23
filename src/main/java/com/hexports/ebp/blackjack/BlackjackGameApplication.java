@@ -1,5 +1,6 @@
 package com.hexports.ebp.blackjack;
 
+import com.hexports.ebp.blackjack.adapter.out.gamemonitor.HttpGameMonitor;
 import com.hexports.ebp.blackjack.domain.Deck;
 import com.hexports.ebp.blackjack.domain.Game;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +16,7 @@ public class BlackjackGameApplication {
 
     @Bean
     public Game createGame() {
-        return new Game(new Deck());
+        return new Game(new Deck(), new HttpGameMonitor());
     }
 
 }
